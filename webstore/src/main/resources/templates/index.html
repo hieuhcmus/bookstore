@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head>
+    <th:block layout:fragment="css_placeholder">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+        <link rel="stylesheet" th:href="@{/css/login.css}" href="../../css/login.css"/>
+    </th:block>
+</head>
+<body>
+<header layout:fragment="page_header" class="d-none"></header>
+<ol layout:fragment="breadcrumb" class="d-none">
+</ol>
+<th:block layout:fragment="page_content">
+</th:block>
+</body>
+</html>

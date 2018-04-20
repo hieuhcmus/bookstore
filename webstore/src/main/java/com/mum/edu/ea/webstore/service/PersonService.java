@@ -61,7 +61,7 @@ public class PersonService {
 		user.addRole(customerRole);
 		user.setPassword(passwordEncoder.encode(person.getPassword()));
 
-		person = personRepository.save(person);
+		personRepository.save(person);
 		userRepository.save(user);
 	}
 }
