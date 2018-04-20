@@ -30,7 +30,14 @@ public class PersonService {
 
 	public Person savePerson(Person person) {
 		User user = userRepository.findByEmail(person.getEmail());
-		user.setEnabled(person.isEnabled());
+		if (user != null) {
+			user.setEnabled(person.isEnabled());
+		} else {
+			user = new User();
+			user.setEmail(person.getEmail());
+			Role customerRole = roleRepository.findByRole("ROLE_CUSTOMER");
+			user.addRole(customerRole);
+		}
 		userRepository.save(user);
 		return personRepository.save(person);
 	}
