@@ -1,5 +1,6 @@
 package com.mum.edu.ea.webstore.jms;
 
+import com.mum.edu.ea.jms.model.InventoryResponse;
 import com.mum.edu.ea.webstore.service.MessagingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

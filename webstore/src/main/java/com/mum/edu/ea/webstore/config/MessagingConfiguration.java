@@ -16,7 +16,7 @@ public class MessagingConfiguration {
 	public ActiveMQConnectionFactory connectionFactory(){
 		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
 		connectionFactory.setBrokerURL(DEFAULT_BROKER_URL);
-		connectionFactory.setTrustedPackages(Arrays.asList("com.mum.edu.ea.webstore"));
+		connectionFactory.setTrustedPackages(Arrays.asList("com.mum.edu.ea"));
 		return connectionFactory;
 	}
 

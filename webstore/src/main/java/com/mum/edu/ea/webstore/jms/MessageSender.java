@@ -1,5 +1,6 @@
 package com.mum.edu.ea.webstore.jms;
 
+import com.mum.edu.ea.jms.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
