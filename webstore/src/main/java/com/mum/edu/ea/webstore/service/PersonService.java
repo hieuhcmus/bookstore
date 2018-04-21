@@ -30,7 +30,14 @@ public class PersonService {
 
 	public Person savePerson(Person person) {
 		User user = userRepository.findByEmail(person.getEmail());
-		user.setEnabled(person.isEnabled());
+		if (user != null) {
+			user.setEnabled(person.isEnabled());
+		} else {
+			user = new User();
+			user.setEmail(person.getEmail());
+			Role customerRole = roleRepository.findByRole("ROLE_CUSTOMER");
+			user.addRole(customerRole);
+		}
 		userRepository.save(user);
 		return personRepository.save(person);
 	}
@@ -61,7 +68,7 @@ public class PersonService {
 		user.addRole(customerRole);
 		user.setPassword(passwordEncoder.encode(person.getPassword()));
 
-		person = personRepository.save(person);
+		personRepository.save(person);
 		userRepository.save(user);
 	}
 }
