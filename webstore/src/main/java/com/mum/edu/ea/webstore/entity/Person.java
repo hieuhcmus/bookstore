@@ -1,7 +1,20 @@
 package com.mum.edu.ea.webstore.entity;
 
-import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -24,7 +37,11 @@ public class Person implements Serializable {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "ADDRESS_ID")
 	private Address address;
-
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "PERSON_ID")
+	private List<Order> orders;
+	
 	@Column(name = "PHONE")
 	private String phone;
 
@@ -97,4 +114,13 @@ public class Person implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+	
 }
