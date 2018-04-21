@@ -31,7 +31,7 @@ public class Order implements Serializable {
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "ORDERED AT")
-	private Date orderedAt;
+	private Date orderedAt = new Date();
 	
 	@OneToMany
 	@JoinColumn(name = "ORDER_ID")
@@ -44,10 +44,10 @@ public class Order implements Serializable {
 	private Person customer;
 	
 	@Temporal(TemporalType.DATE)
-	private Date createdAt;
+	private Date createdAt = new Date();
 	
 	@Temporal(TemporalType.DATE)
-	private Date updatedAt;
+	private Date updatedAt = new Date();
 
 	public Order(Long orderId, Date orderedAt, List<OrderLine> orderLine, OrderStatus orderStatus, Person customer,
 			Date createdAt, Date updatedAt) {
