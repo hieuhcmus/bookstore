@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="layout/layout">
+<head>
+    <th:block layout:fragment="css_placeholder">
+        <link rel="stylesheet" th:href="@{/css/product_details.css}" href="../../css/product_details.css"/>
+    </th:block>
+</head>
+<body>
+<header layout:fragment="page_header" class="d-none"></header>
+<ol layout:fragment="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Product details</li>
+</ol>
+<th:block layout:fragment="page_content">
+    <form th:object="${orderline}" th:action="@{'/product/addToCart/' + ${orderline.product.id}}" method="post" class="form-custom">
+        <!--<div class="form-group row required">-->
+            <!--<label for="productId" class="col-sm-3 col-md-3 col-form-label">Product Id</label>-->
+            <!--<div class="col-sm-9 col-md-9">-->
+                <!--<input id="productId" name="productId" type="text" th:field="*{product.id}" />-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="col-sm-3 col-md-3">
+            <img th:src="*{product.imageURL}">
+        </div>
+        <div>
+            <span class="col-sm-3 col-md-3 col-form-label" th:text="*{product.name}"></span>
+            <p class="col-sm-9 col-md-9" th:text="*{product.price}"></p>
+        </div>
+        <div>
+            <span><strong>Quantity</strong></span>
+            <div class="col-sm-9 col-md-9">
+                <input name="quantity" th:field="*{quantity}" type="number" class="form-control" id="quantity">
+            </div>
+        </div>
+        <div>
+            <span class="col-sm-3 col-md-3 col-form-label">Description</span>
+            <p class="col-sm-9 col-md-9" th:text="*{product.description}"></p>
+        </div>
+        <div>
+            <span class="col-sm-3 col-md-3 col-form-label">Manufacturer</span>
+            <p class="col-sm-9 col-md-9" th:text="*{product.manufacturer}"></p>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Add to Cart"></form>
+    </form>
+    <a class="btn btn-secondary create-product-btn" th:href="@{/product/all}" role="button">Checkout</a>
+</th:block>
+</body>
+</html>

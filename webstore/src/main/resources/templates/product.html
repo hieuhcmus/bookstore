@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="layout/layout">
+<head>
+    <th:block layout:fragment="css_placeholder">
+        <link rel="stylesheet" th:href="@{/css/product.css}" href="../../css/product.css"/>
+    </th:block>
+</head>
+<body>
+<header layout:fragment="page_header" class="d-none"></header>
+<ol layout:fragment="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Product</li>
+</ol>
+<th:block layout:fragment="page_content">
+    <form th:object="${product}" th:action="@{/product/addProduct}" method="post" class="form-custom">
+        <input type="hidden" name="id" th:field="*{id}" />
+        <div class="form-group row required">
+            <label for="name" class="col-sm-3 col-md-3 col-form-label">Name</label>
+            <div class="col-sm-9 col-md-9">
+                <input th:field="*{name}" type="text" class="form-control" id="name" required>
+            </div>
+        </div>
+        <div class="form-group row required">
+            <label for="price" class="col-sm-3 col-md-3 col-form-label">Price</label>
+            <div class="col-sm-9 col-md-9">
+                <input th:field="*{price}" type="text" class="form-control" id="price" required>
+            </div>
+        </div>
+        <div class="form-group row required">
+            <label for="imageURL" class="col-sm-3 col-md-3 col-form-label">Image URL</label>
+            <div class="col-sm-9 col-md-9">
+                <input th:field="*{imageURL}" type="text" class="form-control" id="imageURL" required>
+            </div>
+        </div>
+        <div class="form-group row required">
+            <label for="manufacturer" class="col-sm-3 col-md-3 col-form-label">Manufacturer</label>
+            <div class="col-sm-9 col-md-9">
+                <input th:field="*{manufacturer}" type="text" class="form-control" id="manufacturer" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="description" class="col-sm-3 col-md-3 col-form-label">Description</label>
+            <div class="col-sm-9 col-md-9">
+                <input th:field="*{description}" type="text" class="form-control" id="description">
+            </div>
+        </div>
+        <!--<div class="form-group row" sec:authorize="hasRole('ROLE_ADMIN')">-->
+        <input type="submit" class="btn btn-primary"/>
+    </form>
+</th:block>
+</body>
+</html>

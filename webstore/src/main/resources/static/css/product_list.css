@@ -1,0 +1,79 @@
+@font-face {
+    font-family: "cabin";
+    src: url('resources/fonts/Cabin-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: "quicksand";
+    src: url('resources/fonts/Quicksand-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: "raleway";
+    src: url("<c:url value='resources/fonts/Raleway-Regular.ttf'/>");
+}
+.product {
+    float: left;
+    text-align: center;
+    margin: 10px;
+    width: 400px;
+    height: 400px;
+    display: inline-block;
+    box-shadow: 0px 0px 2px 2px rgba(50, 50, 50, 0.5);
+}
+.product:hover {
+    box-shadow: 2px 2px 4px 4px rgba(50, 50, 50, 0.5);
+}
+.prod_img {
+    height: 75%;
+}
+.prod_add_cart {
+    height: 50px;
+    color: #000;
+    cursor: pointer;
+    background-color: #29434e;
+    text-align: center;
+}
+.prod_add_cart svg {
+    margin-top: 12px;
+}
+.prod_add_cart:hover {
+    background-color: #819ca9;
+}
+#products {
+    width: 95%;
+    margin: 100px auto;
+    text-align: center;
+}
+#toast {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: azure;
+    width: 400px;
+    height: 50px;
+    padding: 5px;
+    font-weight: bold;
+    display: none;
+}
+#cart_count{
+    display: none;
+    text-align: center;
+    position: fixed;
+    top: 18px;
+    right: 23px;
+    background-color: white;
+    color: black;
+    border-radius: 15px;
+    width: 15px;
+    height: 15px;
+    font-size: 10pt;
+}
+a:link{
+    text-decoration: none;
+    color: white;
+}
+a:visited{
+    text-decoration: none;
+    color: white;
+}

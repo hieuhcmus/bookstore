@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head>
+    <section layout:fragment="css_placeholder">
+        <link rel="stylesheet" th:href="@{/css/product_list.css}" href="../../css/product_list.css"/>
+    </section>
+</head>
+<body>
+<header layout:fragment="page_header" class="d-none"></header>
+<ol layout:fragment="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Product List</li>
+</ol>
+<th:block layout:fragment="page_content">
+    <a class="btn btn-secondary create-product-btn" th:href="@{/product/addProduct}" role="button">Create Product</a>
+    <div id="products" th:each="product : ${products}">
+        <div class="product">
+            <a th:href="@{'/product/productDetails/' + ${product.id}}">
+                <img class="prod_img" th:src="${product.imageURL}"></a><br />
+                <span><strong th:text="${product.name}"></strong></span><br/>
+                <span th:text="${product.price}">$</span>
+            </a>
+        </div>
+    </div>
+    <div id="toast">
+        <p id="toast_message">${errormsg}</p>
+    </div>
+</th:block>
+</body>
+</html>

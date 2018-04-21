@@ -12,17 +12,21 @@ public class Product {
 
     private String name;
     private Double price;
-    private Boolean isAvailable;
+    private Boolean isAvailable = true;
 
     @Enumerated(EnumType.STRING)
     private ProductCategory category;
     private String imageURL;
 
     @Temporal(TemporalType.DATE)
-    private Date createdAt;
+    private Date createdAt = new Date();
 
     @Temporal(TemporalType.DATE)
-    private Date updatedAt;
+    private Date updatedAt = new Date();
+
+    private String manufacturer;
+
+    private String description;
 
     public long getId() {
         return id;
@@ -86,5 +90,21 @@ public class Product {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
