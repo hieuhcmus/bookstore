@@ -30,11 +30,10 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="orderline : ${ShoppingCart.orderLine)" th:unless = "${session == null}">
-					<td th:text="${orderline.product.imageURL}"></td>
-					<td th:text="${orderline.quantity}"></td>
+				<tr th:each="orderline : ${session.order.orderLine}" th:unless = "${session == null}">
+					<td th:text="*{product.imageURL}"></td>
+					<td th:text="*{quantity}"></td>
 				</tr>
-				</c:forEach>
 			</tbody>
 		</table>
 	</th:block>

@@ -15,37 +15,38 @@
     <li class="breadcrumb-item active" aria-current="page">Product details</li>
 </ol>
 <th:block layout:fragment="page_content">
-    <form th:object="${orderline}" th:action="@{'/product/addToCart/' + ${orderline.product.id}}" method="post" class="form-custom">
-        <!--<div class="form-group row required">-->
-            <!--<label for="productId" class="col-sm-3 col-md-3 col-form-label">Product Id</label>-->
-            <!--<div class="col-sm-9 col-md-9">-->
-                <!--<input id="productId" name="productId" type="text" th:field="*{product.id}" />-->
-            <!--</div>-->
-        <!--</div>-->
-        <div class="col-sm-3 col-md-3">
-            <img th:src="*{product.imageURL}">
-        </div>
-        <div>
-            <span class="col-sm-3 col-md-3 col-form-label" th:text="*{product.name}"></span>
-            <p class="col-sm-9 col-md-9" th:text="*{product.price}"></p>
-        </div>
-        <div>
-            <span><strong>Quantity</strong></span>
-            <div class="col-sm-9 col-md-9">
-                <input name="quantity" th:field="*{quantity}" type="number" class="form-control" id="quantity">
+    <form th:object="${orderline}" th:action="@{'/product/addToCart/' + ${orderline.product.id}}" method="post"
+          class="form-custom">
+        <div class="row">
+            <div class="col-sm-12 col-md-6 text-center">
+                <img th:src="*{product.imageURL}">
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <div>
+                    <span class="col-sm-3 col-md-3 col-form-label"><strong th:text="*{product.name}"></strong></span>
+                    <p class="col-sm-9 col-md-9" th:text="'$'+*{product.price}"></p>
+                </div>
+                <div>
+                    <span class="col-sm-3 col-md-3 col-form-label"><strong>Quantity</strong></span>
+                    <div class="col-sm-9 col-md-9">
+                        <input name="quantity" th:field="*{quantity}" type="number" class="form-control" id="quantity">
+                    </div>
+                </div>
+                <div>
+                    <span class="col-sm-3 col-md-3 col-form-label"><strong>Description</strong></span>
+                    <p class="col-sm-9 col-md-9" th:text="*{product.description}"></p>
+                </div>
+                <div>
+                    <span class="col-sm-3 col-md-3 col-form-label">Manufacturer</span>
+                    <p class="col-sm-9 col-md-9" th:text="*{product.manufacturer}"></p>
+                </div>
             </div>
         </div>
-        <div>
-            <span class="col-sm-3 col-md-3 col-form-label">Description</span>
-            <p class="col-sm-9 col-md-9" th:text="*{product.description}"></p>
+        <div class="col-12 text-center">
+            <a class="btn btn-success" th:href="@{/product/all}" role="button">Checkout</a>
+            <input type="submit" class="btn btn-primary mx-1" value="Add to Cart"/>
         </div>
-        <div>
-            <span class="col-sm-3 col-md-3 col-form-label">Manufacturer</span>
-            <p class="col-sm-9 col-md-9" th:text="*{product.manufacturer}"></p>
-        </div>
-        <input type="submit" class="btn btn-primary" value="Add to Cart"></form>
     </form>
-    <a class="btn btn-secondary create-product-btn" th:href="@{/product/all}" role="button">Checkout</a>
 </th:block>
 </body>
 </html>

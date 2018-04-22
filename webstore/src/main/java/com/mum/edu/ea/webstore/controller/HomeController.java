@@ -17,7 +17,8 @@ public class HomeController {
 
 	@GetMapping({"/"})
 	public String homePage(Model model) {
-		return "index";
+//		return "index";
+		return "redirect:/product/all";
 	}
 
 	@GetMapping({"/login"})
