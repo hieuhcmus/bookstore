@@ -24,7 +24,7 @@ public class OrderLine implements Serializable{
 	private Long orderLineId;
 	
 	@OneToOne
-	@JoinColumn(name = "ORDERLINE ID")
+	@JoinColumn(name = "PRODUCT_ID")
 	private Product product;
 	
 	private int quantity;

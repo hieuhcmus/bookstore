@@ -12,17 +12,17 @@
 <body>
 	<header layout:fragment="page_header" class="d-none"></header>
 	<ol layout:fragment="breadcrumb">
-
 		<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-		<li class="breadcrumb-item active" aria-current="page">Your
-			Shopping Cart</li>
+		<li class="breadcrumb-item active" aria-current="page">Your Order
+			Description</li>
 
 	</ol>
 
 	<th:block layout:fragment="page_content">
 
-
 		<table class="table table-bordered table-striped">
+			<span>Your order has been placed successfully. It will be
+				processed soon.</span>
 			<thead class="thead-dark">
 				<tr>
 					<th scope="col">Image</th>
@@ -30,29 +30,33 @@
 					<th scope="col">Quantity</th>
 					<th scope="col">Price</th>
 					<th scope="col">Total Price</th>
-					<th scope="col">Remove Button</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="orderline : ${ShoppingCart.orderLine}"
+				<tr th:each="orderline : ${orderDescription.orderLine}"
 					th:unless="${session == null}">
 					<td><img alt="Product Image"
 						th:src="${orderline.product.imageURL}"></td>
 					<td th:text="${orderline.product.name}"></td>
-					<td><input name="quantity" type="number" class="form-control"
-						id="quantity" th:value="${orderline.quantity}"></td>
+					<td th:text="${orderline.quantity}"></td>
 					<td th:text="${orderline.product.price}"></td>
 					<td
 						th:text="${#numbers.formatDecimal(orderline.product.price * orderline.quantity, 0 , 2)}"></td>
-					<td><button class="btn btn-danger">
-							<span class="glyphicon glyphicon-remove">Remove</span>
-						</button></td>
+
 				</tr>
 				</c:forEach>
 			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="4">Total Items</td>
+					<td th:text="${orderedQuantities}"></td>
+				</tr>
+				<tr>
+					<td colspan="4">Total Price</td>
+					<td th:text="${totalPrice}">$</td>
+				</tr>
+			</tfoot>
 		</table>
-		<a th:href="@{/confirmed-order}"><button class="btn btn-success">Place
-				Order</button></a>
 	</th:block>
 </body>
 </html>
