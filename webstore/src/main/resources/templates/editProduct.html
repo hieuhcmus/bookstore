@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="layout/layout">
 <head>
     <th:block layout:fragment="css_placeholder">
@@ -12,10 +11,10 @@
 <header layout:fragment="page_header" class="d-none"></header>
 <ol layout:fragment="breadcrumb">
     <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Product</li>
+    <li class="breadcrumb-item active" aria-current="page">Edit Product</li>
 </ol>
 <th:block layout:fragment="page_content">
-    <form th:object="${product}" th:action="@{/product/addProduct}" method="post" class="form-custom">
+    <form th:object="${product}" th:action="@{/product/updateProduct}" method="post" class="form-custom">
         <input type="hidden" name="id" th:field="*{id}" />
         <div class="form-group row required">
             <label for="name" class="col-sm-3 col-md-3 col-form-label">Name</label>
@@ -48,7 +47,11 @@
             </div>
         </div>
         <!--<div class="form-group row" sec:authorize="hasRole('ROLE_ADMIN')">-->
-        <input type="submit" class="btn btn-primary" value="Create new Product"/>
+        <input type="submit" class="btn btn-primary" value="Update"/>
+    </form>
+
+    <form th:object="${product}" th:action="@{'/product/delete/' + ${product.id}}" method="post" class="form-custom">
+        <input type="submit" class="btn btn-danger" value="Delete">
     </form>
 </th:block>
 </body>

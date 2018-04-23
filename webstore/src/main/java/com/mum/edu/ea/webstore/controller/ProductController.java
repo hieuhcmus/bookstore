@@ -17,6 +17,11 @@ import java.util.List;
 @SessionAttributes(value = {"order"})
 public class ProductController {
 
+    @ModelAttribute("order")
+    public Order getOrder(){
+        return new Order();
+    }
+
     @Autowired
     private ProductService productService;
 
@@ -26,16 +31,16 @@ public class ProductController {
         return "productList";
     }
 
-    @GetMapping(path = "/{productId}")
-    public String getProduct(Model model, @PathVariable Long productId){
-        model.addAttribute("product", productService.getProduct(productId));
-        return "product";
-    }
-
-    @GetMapping(path = "/search")
+    @PostMapping(path = "/all")
     public String searchProduct(Model model, @RequestParam("query") String query){
         model.addAttribute("products", productService.searchProduct(query));
         return "productList";
+    }
+
+    @GetMapping(path = "/{productId}")
+    public String getProduct(Model model, @PathVariable Long productId){
+        model.addAttribute("product", productService.getProduct(productId));
+        return "editProduct";
     }
 
     @GetMapping(path = "/addProduct")
@@ -56,7 +61,7 @@ public class ProductController {
         return "redirect:/product/all";
     }
 
-    @GetMapping(path = "/delete/{productId}")
+    @PostMapping(path = "/delete/{productId}")
     public String deleteProduct(@PathVariable Long productId){
         productService.deleteProduct(productId);
         return "redirect:/product/all";
@@ -64,9 +69,6 @@ public class ProductController {
 
     @GetMapping(path = "/productDetails/{productId}")
     public String productDetailsPage(Model model, @PathVariable Long productId){
-        if(!model.containsAttribute("order")){
-            model.addAttribute("order", new Order());
-        }
         OrderLine orderLine = new OrderLine();
         orderLine.setQuantity(1);
         orderLine.setProduct(productService.getProduct(productId));

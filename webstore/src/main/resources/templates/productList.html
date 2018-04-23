@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorate="layout/layout">
 <head>
     <section layout:fragment="css_placeholder">
@@ -14,14 +14,29 @@
     <li class="breadcrumb-item active" aria-current="page">Product List</li>
 </ol>
 <th:block layout:fragment="page_content">
-    <a class="btn btn-secondary create-product-btn" th:href="@{/product/addProduct}" role="button">Create Product</a>
-    <div id="products" th:each="product : ${products}">
-        <div class="product">
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <a class="btn btn-secondary create-product-btn" th:href="@{/product/addProduct}" role="button">Create
+            Product</a>
+    </div>
+    <form method="post" class="row col-12 text-center">
+        <div class="col-sm-12 col-md-11">
+            <input name="query" type="text" class="form-control" id="query">
+        </div>
+        <div class="col-sm-12 col-md-1">
+            <input class="btn btn-success" type="submit" value="Search">
+        </div>
+    </form>
+    <div class="col-12 row justify-content-md-center">
+        <div class="product col-sm-11 col-md-6 col-lg-4" th:each="product : ${products}">
             <a th:href="@{'/product/productDetails/' + ${product.id}}">
-                <img class="prod_img" th:src="${product.imageURL}"></a><br />
-                <span><strong th:text="${product.name}"></strong></span><br/>
-                <span th:text="${product.price}">$</span>
+                <img class="prod_img" th:src="${product.imageURL}">
+                <br/>
+            <span><strong th:text="${product.name}"></strong></span><br/>
+            $<span th:text="${product.price}"></span>
             </a>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <a class="btn btn-primary" th:href="@{'/product/' + ${product.id}}" role="button">Edit</a>
+            </div>
         </div>
     </div>
     <div id="toast">
