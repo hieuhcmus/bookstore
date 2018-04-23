@@ -18,15 +18,15 @@
         <a class="btn btn-secondary create-product-btn" th:href="@{/product/addProduct}" role="button">Create
             Product</a>
     </div>
-    <form method="post" class="row col-12 text-center">
+    <div class="row col-12 text-center">
         <div class="col-sm-12 col-md-11">
             <input name="query" type="text" class="form-control" id="query">
         </div>
         <div class="col-sm-12 col-md-1">
-            <input class="btn btn-success" type="submit" value="Search">
+            <button class="btn btn-primary create-product-btn" onclick="searchProductsAjax()">Search</button>
         </div>
-    </form>
-    <div class="col-12 row justify-content-md-center">
+    </div>
+    <div id="productList" class="col-12 row justify-content-md-center">
         <div class="product col-sm-11 col-md-6 col-lg-4" th:each="product : ${products}">
             <a th:href="@{'/product/productDetails/' + ${product.id}}">
                 <img class="prod_img" th:src="${product.imageURL}">
@@ -42,6 +42,16 @@
     <div id="toast">
         <p id="toast_message">${errormsg}</p>
     </div>
+    <script language="JavaScript">
+        function searchProductsAjax() {
+            var url = '/product/search/';
+            var query = $('#query').val();
+            $.get(url, { query: query},
+                function(data){
+                    $('#productList').html(data);
+                });
+        }
+    </script>
 </th:block>
 </body>
 </html>

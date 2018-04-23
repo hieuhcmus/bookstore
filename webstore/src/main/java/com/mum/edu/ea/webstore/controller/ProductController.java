@@ -31,10 +31,10 @@ public class ProductController {
         return "productList";
     }
 
-    @PostMapping(path = "/all")
+    @GetMapping(path = "/search")
     public String searchProduct(Model model, @RequestParam("query") String query){
         model.addAttribute("products", productService.searchProduct(query));
-        return "productList";
+        return "productFragment :: resultsList";
     }
 
     @GetMapping(path = "/{productId}")
