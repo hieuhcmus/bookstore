@@ -28,6 +28,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/signup", "/login", "/h2-console/**", "/webjars/**", "/css/**", "/images/**").permitAll();
 		http.csrf().disable();
 		http.headers().frameOptions().disable();
+		http.authorizeRequests().antMatchers("/checkout").authenticated();
 
 		http.formLogin()
 				.loginPage("/login")
