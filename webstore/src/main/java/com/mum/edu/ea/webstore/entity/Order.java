@@ -111,4 +111,11 @@ public class Order implements Serializable {
 				+ orderStatus + ", customer=" + "createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
 	}
 
+	public Long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
+	}
 }

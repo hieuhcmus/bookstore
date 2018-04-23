@@ -1,5 +1,6 @@
 package com.mum.edu.ea.webstore.controller;
 
+import com.mum.edu.ea.webstore.service.MessagingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,9 @@ public class OrderController {
 
 	@Autowired
 	private OrderLineService orderLineService;
+
+	@Autowired
+	private MessagingService messagingService;
 
 	@ModelAttribute("order")
 	public Order gerOrder() {
@@ -69,6 +73,10 @@ public class OrderController {
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("orderDescription", order);
 		status.setComplete();
+
+		//send JMS message to inventory app
+		messagingService.sendMessage(order, totalQuantities, totalPrice);
+
 		return "orderDescription";
 	}
 }

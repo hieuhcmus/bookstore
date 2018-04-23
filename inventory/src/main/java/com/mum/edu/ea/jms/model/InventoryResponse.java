@@ -3,6 +3,7 @@ package com.mum.edu.ea.jms.model;
 import java.io.Serializable;
 
 public class InventoryResponse implements Serializable {
+	private long id;
 	private String status;
 	private String orderName;
 
@@ -45,5 +46,13 @@ public class InventoryResponse implements Serializable {
 		} else if (!orderName.equals(other.orderName))
 			return false;
 		return true;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 }
