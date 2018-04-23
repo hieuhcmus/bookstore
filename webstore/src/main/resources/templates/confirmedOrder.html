@@ -4,18 +4,18 @@
 	layout:decorate="layout/layout">
 <head>
 <section layout:fragment="css_placeholder">
-	<link rel="stylesheet" th:href="@{/css/shopping_cart.css}"
+	<link rel="stylesheet" th:href="@{/css/confirmedOrder.css}"
 		href="../../css/shopping_cart.css" />
-	<script type="text/javascript" th:href="@{/js/shopping_cart.js}"></script>
+	<script type="text/javascript" th:href="@{/hs/confirmedOrder.js}"></script>
 </section>
 </head>
 <body>
 	<header layout:fragment="page_header" class="d-none"></header>
 	<ol layout:fragment="breadcrumb">
-
 		<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+		<li class="breadcrumb-item"><a th:href="@{/shopping-cart}">Your Shopping Cart</a></li>
 		<li class="breadcrumb-item active" aria-current="page">Your
-			Shopping Cart</li>
+			Confirmed Orders</li>
 
 	</ol>
 
@@ -30,29 +30,34 @@
 					<th scope="col">Quantity</th>
 					<th scope="col">Price</th>
 					<th scope="col">Total Price</th>
-					<th scope="col">Remove Button</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="orderline : ${ShoppingCart.orderLine}"
+				<tr th:each="orderline : ${confirmedOrder.orderLine}"
 					th:unless="${session == null}">
 					<td><img alt="Product Image"
 						th:src="${orderline.product.imageURL}"></td>
 					<td th:text="${orderline.product.name}"></td>
-					<td><input name="quantity" type="number" class="form-control"
-						id="quantity" th:value="${orderline.quantity}"></td>
+					<td th:text="${orderline.quantity}"></td>
 					<td th:text="${orderline.product.price}"></td>
 					<td
 						th:text="${#numbers.formatDecimal(orderline.product.price * orderline.quantity, 0 , 2)}"></td>
-					<td><button class="btn btn-danger">
-							<span class="glyphicon glyphicon-remove">Remove</span>
-						</button></td>
 
 				</tr>
+				</c:forEach>
 			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="4">Total Items</td>
+					<td th:text="${orderedQuantities}"></td>
+				</tr>
+				<tr>
+					<td colspan="4">Total Price</td>
+					<td th:text="${totalPrice}">$</td>
+				</tr>
+			</tfoot>
 		</table>
-		<a th:href="@{/confirmed-order}"><button class="btn btn-success">Place
-				Order</button></a>
+		<a th:href="@{/checkout}"><button class="btn btn-success">Checkout</button></a>
 	</th:block>
 </body>
 </html>

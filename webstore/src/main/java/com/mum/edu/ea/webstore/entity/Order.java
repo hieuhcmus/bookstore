@@ -5,20 +5,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 @Entity
+@Table(name = "orders")
 public class Order implements Serializable {
-	
+
 	/**
 	 * 
 	 */
@@ -28,35 +31,31 @@ public class Order implements Serializable {
 	@GeneratedValue
 	@Column(name = "ID")
 	private Long orderId;
-	
+
 	@Temporal(TemporalType.DATE)
-	@Column(name = "ORDERED AT")
+	@Column(name = "ORDERED_AT")
 	private Date orderedAt = new Date();
-	
-	@OneToMany
+
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "ORDER_ID")
 	private List<OrderLine> orderLine = new ArrayList<OrderLine>();
-	
-	@Enumerated
+
+	@Enumerated(EnumType.STRING)
 	private OrderStatus orderStatus;
-	
-	
-	private Person customer;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date createdAt = new Date();
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date updatedAt = new Date();
 
-	public Order(Long orderId, Date orderedAt, List<OrderLine> orderLine, OrderStatus orderStatus, Person customer,
-			Date createdAt, Date updatedAt) {
+	public Order(Long orderId, Date orderedAt, List<OrderLine> orderLine, OrderStatus orderStatus, Date createdAt,
+			Date updatedAt) {
 		super();
 		this.orderId = orderId;
 		this.orderedAt = orderedAt;
 		this.orderLine = orderLine;
 		this.orderStatus = orderStatus;
-		this.customer = customer;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 	}
@@ -90,14 +89,6 @@ public class Order implements Serializable {
 		this.orderStatus = orderStatus;
 	}
 
-	public Person getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Person customer) {
-		this.customer = customer;
-	}
-
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -117,10 +108,14 @@ public class Order implements Serializable {
 	@Override
 	public String toString() {
 		return "Order [orderId=" + orderId + ", orderedAt=" + orderedAt + ", orderLine=" + orderLine + ", orderStatus="
-				+ orderStatus + ", customer=" + customer + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-				+ "]";
+				+ orderStatus + ", customer=" + "createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
 	}
-	
-	
-	
+
+	public Long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
+	}
 }

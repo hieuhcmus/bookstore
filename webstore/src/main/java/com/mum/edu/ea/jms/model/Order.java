@@ -1,15 +1,19 @@
 package com.mum.edu.ea.jms.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * The temporary class, will be deleted later.
  */
 public class Order implements Serializable {
+	private long orderId;
 	private String name;
 	private String description;
-	private double price;
+	private double totalPrice;
 	private int quantity;
+	private String status;
+	private Date createdDate;
 
 	public String getName() {
 		return name;
@@ -27,12 +31,12 @@ public class Order implements Serializable {
 		this.description = description;
 	}
 
-	public double getPrice() {
-		return price;
+	public double getTotalPrice() {
+		return totalPrice;
 	}
 
-	public void setPrice(double price) {
-		this.price = price;
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 
 	public int getQuantity() {
@@ -66,5 +70,29 @@ public class Order implements Serializable {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(long orderId) {
+		this.orderId = orderId;
 	}
 }

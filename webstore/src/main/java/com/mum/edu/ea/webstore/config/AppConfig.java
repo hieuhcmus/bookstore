@@ -3,7 +3,9 @@ package com.mum.edu.ea.webstore.config;
 import com.mum.edu.ea.webstore.service.CustomUserDetailsService;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,19 +24,20 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/signup", "/login", "/h2-console/**", "/webjars/**", "/css/**", "/images/**").permitAll();
-        http.csrf().disable();
-        http.headers().frameOptions().disable();
-        http.authorizeRequests().antMatchers("/checkout").authenticated();
-        http.formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll();
-    }
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests().antMatchers("/signup", "/login", "/h2-console/**", "/webjars/**", "/css/**", "/images/**").permitAll();
+		http.csrf().disable();
+		http.headers().frameOptions().disable();
+		http.authorizeRequests().antMatchers("/checkout").authenticated();
+
+		http.formLogin()
+				.loginPage("/login")
+				.permitAll()
+				.and()
+				.logout()
+				.permitAll();
+	}
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
