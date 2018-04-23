@@ -1,7 +1,6 @@
 package com.mum.edu.ea.jms.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * The temporary class, will be deleted later.
@@ -13,7 +12,6 @@ public class Order implements Serializable {
 	private double totalPrice;
 	private int quantity;
 	private String status;
-	private Date createdDate;
 
 	public String getName() {
 		return name;
@@ -78,14 +76,6 @@ public class Order implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
 	}
 
 	public long getOrderId() {

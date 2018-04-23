@@ -1,12 +1,15 @@
 package com.mum.edu.ea.inventory.service;
 
+import com.mum.edu.ea.inventory.dao.OrderQueueRepository;
+import com.mum.edu.ea.inventory.entity.OrderQueue;
 import com.mum.edu.ea.jms.model.InventoryResponse;
 import com.mum.edu.ea.inventory.jms.MessageSender;
-import com.mum.edu.ea.jms.model.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class OrderInventoryService {
@@ -15,17 +18,23 @@ public class OrderInventoryService {
 	@Autowired
 	private MessageSender messageSender;
 
-	public void processOrder(Order order) {
-		InventoryResponse response = prepareResponse(order);
+	@Autowired
+	private OrderQueueRepository orderQueueRepository;
+
+	public void processOrder(long orderQueueId, String status) {
+		Optional<OrderQueue> orderQueueOpt = orderQueueRepository.findById(orderQueueId);
+		OrderQueue orderQueue = orderQueueOpt.get();
+		orderQueue.setStatus(status);
+		orderQueueRepository.save(orderQueue);
+		InventoryResponse response = prepareResponse(orderQueue, status);
 		LOG.info("Inventory : sending order confirmation {}", response);
 		messageSender.sendMessage(response);
 	}
 
-	private InventoryResponse prepareResponse(Order order) {
+	private InventoryResponse prepareResponse(OrderQueue orderQueue, String status) {
 		InventoryResponse response = new InventoryResponse();
-		response.setOrderName(order.getName());
-//		response.setReturnCode(200);
-//		response.setComment("Order Processed successfully");
+		response.setId(orderQueue.getOrderId());
+		response.setStatus(status);
 		return response;
 	}
 

@@ -6,6 +6,7 @@ import com.mum.edu.ea.jms.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +28,9 @@ public class OrderQueueService {
 	}
 
 	public List<OrderQueue> getAll() {
-		return orderQueueRepository.findAll();
+		List<String> status = new ArrayList<>();
+		status.add("CONFIRMED");
+		status.add("SHIPPED");
+		return orderQueueRepository.findByStatusIn(status);
 	}
 }

@@ -22,23 +22,25 @@
     <table class="table table-bordered table-striped">
             <thead class="thead-dark">
             <tr>
-                <th scope="col">Order name</th>
                 <th scope="col">Status</th>
                 <th scope="col">Ordered At</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Total price</th>
-                <th scope="col">Action</th>
+                <th scope="col">Update Status</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="order : ${orders}">
-                <td th:text="${order.name}"></td>
                 <td th:text="${order.status}"></td>
                 <td th:text="${order.createdDate}"></td>
                 <td th:text="${order.quantity}"></td>
                 <td th:text="${order.totalPrice}"></td>
                 <td>
-                    Process
+                    <select th:attr="order-id=${order.id}" name="status" class="status custom-select form-control">
+                        <option>Select new status</option>
+                        <option value="SHIPPED">SHIPPED</option>
+                        <option value="DELIVERED">DELIVERED</option>
+                    </select>
                 </td>
             </tr>
             </tbody>
@@ -46,6 +48,7 @@
 </div>
 <!-- /.container -->
 <script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.js"></script>
+<script th:src="@{/js/inventory.js}" src="../../js/inventory.js" type="text/javascript"></script>
 <script type="text/javascript" src="/webjars/bootstrap/4.0.0-1/js/bootstrap.js"></script>
 </body>
 </html>
