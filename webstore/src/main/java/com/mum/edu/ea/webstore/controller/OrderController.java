@@ -1,7 +1,8 @@
 package com.mum.edu.ea.webstore.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -69,6 +70,23 @@ public class OrderController {
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("orderDescription", order);
 		status.setComplete();
+		System.out.println("#######################CALLING........");
 		return "orderDescription";
+	}
+	
+	@GetMapping("/orders-admin")
+	public String getOrdersListPage(Model model) {
+		ArrayList<Order> orderList = (ArrayList<Order>)orderService.findAll();
+		
+		/*int totalQuantities = orderList.stream().flatMap(orderLine.stream().mapToDouble(anOrderLine => product.getPrice()).sum();
+		double totalPrice = oorderList.stream()
+				.mapToDouble(orderLine -> orderLine.getQuantity() * orderLine.getProduct().getPrice()).sum();*/
+//		model.addAttribute("orderedQuantities", totalQuantities);
+//		model.addAttribute("totalPrice", totalPrice);
+		
+		model.addAttribute("orderList", orderList);
+		
+		System.out.println("################################################################################# -> "+orderList.get(0).getOrderLine().size());
+		return "orderList";
 	}
 }

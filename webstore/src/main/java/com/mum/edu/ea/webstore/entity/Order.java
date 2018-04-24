@@ -32,7 +32,7 @@ public class Order implements Serializable {
 	@Column(name = "ID")
 	private Long orderId;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "ORDERED_AT")
 	private Date orderedAt = new Date();
 
@@ -43,10 +43,10 @@ public class Order implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private OrderStatus orderStatus;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt = new Date();
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedAt = new Date();
 
 	public Order(Long orderId, Date orderedAt, List<OrderLine> orderLine, OrderStatus orderStatus, Date createdAt,
