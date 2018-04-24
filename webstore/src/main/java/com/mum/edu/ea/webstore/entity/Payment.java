@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "PAYMENT")
 public class Payment implements Serializable {
 	@Id
@@ -18,33 +17,31 @@ public class Payment implements Serializable {
 	@Column(name = "LAST_NAME")
 	private String lastName;
 
-	//@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "ADDRESS_ID")
-	private Address BILL_ADDRESS_ID;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "BILLING_ADDRESS_ID")
+	private Address billingAddress;
 
-	//@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "ADDRESS_ID")
-	private Address SHIP_ADDRESS_ID;
-
-	//ID, BILL_ADDRESS_ID, SHIP_ADDRESS_ID, CARD_TYPE, CARD_NO, EXP_MONTH_YEAR, CVC, AVAILABLE_BALANCE, LIMIT
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "SHIPPING_ADDRESS_ID")
+	private Address shippingAddress;
 
 	@Column(name = "AVAILABLE_BALANCE")
-	private long AVAILABLE_BALANCE;
+	private long availableBalance;
 
-	@Column(name = "LIMIT")
-	private long LIMIT;
+	@Column(name = "LIMIT_AMOUNT")
+	private long limit;
 
 	@Column(name = "CVC")
-	private String CVC;
+	private String cvc;
 
 	@Column(name = "EXP_MONTH_YEAR")
-	private String EXP_MONTH_YEAR;
+	private String expMonthYear;
 
 	@Column(name = "CARD_NO")
-	private String CARD_NO;
+	private String cardNo;
 
 	@Column(name = "CARD_TYPE")
-	private String CARD_TYPE;
+	private String cardType;
 
 	@Column(name = "ENABLED")
 	private boolean enabled;
@@ -73,84 +70,92 @@ public class Payment implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public Address getBILL_ADDRESS_ID() {
-		return BILL_ADDRESS_ID;
-	}
-
-	public void setBILL_ADDRESS_ID(Address BILL_ADDRESS_ID) {
-		this.BILL_ADDRESS_ID = BILL_ADDRESS_ID;
-	}
-
-	public Address getSHIP_ADDRESS_ID() {
-		return SHIP_ADDRESS_ID;
-	}
-
-	public void setSHIP_ADDRESS_ID(Address SHIP_ADDRESS_ID) {
-		this.SHIP_ADDRESS_ID = SHIP_ADDRESS_ID;
-	}
-
-	public long getAVAILABLE_BALANCE() {
-		return AVAILABLE_BALANCE;
-	}
-
-	public void setAVAILABLE_BALANCE(long AVAILABLE_BALANCE) {
-		this.AVAILABLE_BALANCE = AVAILABLE_BALANCE;
-	}
-
-	public long getLIMIT() {
-		return LIMIT;
-	}
-
-	public void setLIMIT(long LIMIT) {
-		this.LIMIT = LIMIT;
-	}
-
-	public String getCVC() {
-		return CVC;
-	}
-
-	public void setCVC(String CVC) {
-		this.CVC = CVC;
-	}
-
-	public String getEXP_MONTH_YEAR() {
-		return EXP_MONTH_YEAR;
-	}
-
-	public void setEXP_MONTH_YEAR(String EXP_MONTH_YEAR) {
-		this.EXP_MONTH_YEAR = EXP_MONTH_YEAR;
-	}
-
-	public String getCARD_NO() {
-		return CARD_NO;
-	}
-
-	public void setCARD_NO(String CARD_NO) {
-		this.CARD_NO = CARD_NO;
-	}
-
-	public String getCARD_TYPE() {
-		return CARD_TYPE;
-	}
-
-	public void setCARD_TYPE(String CARD_TYPE) {
-		this.CARD_TYPE = CARD_TYPE;
-	}
-
 	@Override
 	public String toString() {
 		return "Payment{" +
 				"id=" + id +
 				", firstName='" + firstName + '\'' +
 				", lastName='" + lastName + '\'' +
-				", BILL_ADDRESS_ID=" + BILL_ADDRESS_ID +
-				", SHIP_ADDRESS_ID=" + SHIP_ADDRESS_ID +
-				", AVAILABLE_BALANCE=" + AVAILABLE_BALANCE +
-				", LIMIT=" + LIMIT +
-				", CVC='" + CVC + '\'' +
-				", EXP_MONTH_YEAR='" + EXP_MONTH_YEAR + '\'' +
-				", CARD_NO='" + CARD_NO + '\'' +
-				", CARD_TYPE='" + CARD_TYPE + '\'' +
+				", billingAddress=" + billingAddress +
+				", shippingAddress=" + shippingAddress +
+				", AVAILABLE_BALANCE=" + availableBalance +
+				", LIMIT=" + limit +
+				", CVC='" + cvc + '\'' +
+				", EXP_MONTH_YEAR='" + expMonthYear + '\'' +
+				", CARD_NO='" + cardNo + '\'' +
+				", CARD_TYPE='" + cardType + '\'' +
 				'}';
+	}
+
+	public Address getBillingAddress() {
+		return billingAddress;
+	}
+
+	public void setBillingAddress(Address billingAddress) {
+		this.billingAddress = billingAddress;
+	}
+
+	public Address getShippingAddress() {
+		return shippingAddress;
+	}
+
+	public void setShippingAddress(Address shippingAddress) {
+		this.shippingAddress = shippingAddress;
+	}
+
+	public long getAvailableBalance() {
+		return availableBalance;
+	}
+
+	public void setAvailableBalance(long availableBalance) {
+		this.availableBalance = availableBalance;
+	}
+
+	public long getLimit() {
+		return limit;
+	}
+
+	public void setLimit(long limit) {
+		this.limit = limit;
+	}
+
+	public String getCvc() {
+		return cvc;
+	}
+
+	public void setCvc(String cvc) {
+		this.cvc = cvc;
+	}
+
+	public String getExpMonthYear() {
+		return expMonthYear;
+	}
+
+	public void setExpMonthYear(String expMonthYear) {
+		this.expMonthYear = expMonthYear;
+	}
+
+	public String getCardNo() {
+		return cardNo;
+	}
+
+	public void setCardNo(String cardNo) {
+		this.cardNo = cardNo;
+	}
+
+	public String getCardType() {
+		return cardType;
+	}
+
+	public void setCardType(String cardType) {
+		this.cardType = cardType;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 }
