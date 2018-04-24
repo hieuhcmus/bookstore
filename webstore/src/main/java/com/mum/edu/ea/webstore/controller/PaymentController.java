@@ -1,13 +1,10 @@
 package com.mum.edu.ea.webstore.controller;
 
 import com.mum.edu.ea.webstore.entity.Payment;
-import com.mum.edu.ea.webstore.service.PaymentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -15,7 +12,11 @@ public class PaymentController {
 	/*@Autowired
 	private PersonService personService;
 	*/
-
+	@GetMapping("/payment")
+	public String createPaymentPage(Model model) {
+		model.addAttribute("payment", new Payment());
+		return "payment";
+	}
 	@GetMapping("/payment/status")
 	public String getPaymentStatus() {
 		System.out.println("payment_status");
