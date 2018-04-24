@@ -5,26 +5,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "orders")
 public class Order implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -49,8 +35,15 @@ public class Order implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date updatedAt = new Date();
 
+	@OneToOne
+	@JoinColumn(name = "PERSON_ID")
+	private Person person;
+
+	@Column(name = "TOTAL_PRICE")
+	private double totalPrice;
+
 	public Order(Long orderId, Date orderedAt, List<OrderLine> orderLine, OrderStatus orderStatus, Date createdAt,
-			Date updatedAt) {
+	             Date updatedAt) {
 		super();
 		this.orderId = orderId;
 		this.orderedAt = orderedAt;
@@ -117,5 +110,21 @@ public class Order implements Serializable {
 
 	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
+	}
+
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 }

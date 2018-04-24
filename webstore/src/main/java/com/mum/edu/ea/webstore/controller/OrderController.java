@@ -1,8 +1,12 @@
 package com.mum.edu.ea.webstore.controller;
 
+import com.mum.edu.ea.webstore.config.UserAdapter;
+import com.mum.edu.ea.webstore.entity.Person;
 import com.mum.edu.ea.webstore.service.MessagingService;
+import com.mum.edu.ea.webstore.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +20,8 @@ import com.mum.edu.ea.webstore.entity.OrderStatus;
 import com.mum.edu.ea.webstore.service.OrderLineService;
 import com.mum.edu.ea.webstore.service.OrderService;
 
+import java.util.List;
+
 @Controller
 @SessionAttributes(value = "order")
 public class OrderController {
@@ -28,6 +34,9 @@ public class OrderController {
 
 	@Autowired
 	private MessagingService messagingService;
+
+	@Autowired
+	private PersonService personService;
 
 	@ModelAttribute("order")
 	public Order gerOrder() {
@@ -63,9 +72,13 @@ public class OrderController {
 	}
 
 	@GetMapping("/checkout")
-	public String checkoutOrder(Model model, @ModelAttribute("order") Order order, SessionStatus status) {
+	public String checkoutOrder(Model model, @ModelAttribute("order") Order order, SessionStatus status, Authentication authentication) {
 		order.setOrderStatus(OrderStatus.CONFIRMED);
-		orderService.saveOrder(order);
+
+		UserAdapter userAdapter = (UserAdapter) authentication.getPrincipal();
+		List<Person> persons = personService.findByEmail(userAdapter.getUser().getEmail());
+		order.setPerson(persons.get(0));
+
 		int totalQuantities = order.getOrderLine().stream().mapToInt(or -> or.getQuantity()).sum();
 		double totalPrice = order.getOrderLine().stream()
 				.mapToDouble(orderLine -> orderLine.getQuantity() * orderLine.getProduct().getPrice()).sum();
@@ -73,6 +86,9 @@ public class OrderController {
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("orderDescription", order);
 		status.setComplete();
+
+		order.setTotalPrice(totalPrice);
+		orderService.saveOrder(order);
 
 		//send JMS message to inventory app
 		messagingService.sendMessage(order, totalQuantities, totalPrice);

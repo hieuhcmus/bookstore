@@ -2,6 +2,7 @@ package com.mum.edu.ea.webstore.service;
 
 import java.util.List;
 
+import com.mum.edu.ea.webstore.entity.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +29,9 @@ public class OrderService {
 	
 	public List<Order> findAll(){
 		return orderRepository.findAll();
+	}
+
+	public List<Order> findByPerson(Person person) {
+		return orderRepository.findOrderByPerson(person);
 	}
 }
