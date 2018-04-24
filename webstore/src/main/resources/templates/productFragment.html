@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.w3.org/1999/xhtml" lang="en">
+
+    <head>
+    </head>
+    <body>
+        <div id="results-block" class="product col-sm-11 col-md-6 col-lg-4" th:fragment="resultsList" th:each="product : ${products}" th:unless="${#lists.isEmpty(products)}">
+            <a th:href="@{'/product/productDetails/' + ${product.id}}">
+                <img class="prod_img" th:src="${product.imageURL}">
+                <br/>
+                <span><strong th:text="${product.name}"></strong></span><br/>
+                $<span th:text="${product.price}"></span>
+            </a>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <a class="btn btn-primary" th:href="@{'/product/' + ${product.id}}" role="button">Edit</a>
+            </div>
+        </div>
+    </body>
+</html>

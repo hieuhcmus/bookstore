@@ -31,10 +31,10 @@ public class ProductController {
         return "productList";
     }
 
-    @PostMapping(path = "/all")
+    @GetMapping(path = "/search")
     public String searchProduct(Model model, @RequestParam("query") String query){
         model.addAttribute("products", productService.searchProduct(query));
-        return "productList";
+        return "productFragment :: resultsList";
     }
 
     @GetMapping(path = "/{productId}")
@@ -77,7 +77,7 @@ public class ProductController {
     }
 
     @PostMapping(path = "/addToCart/{productId}")
-    public String productDetails(Model model, @ModelAttribute("order") Order order,
+    public String addProductToCart(Model model, @ModelAttribute("order") Order order,
                                  @RequestParam("quantity") int quantity, @PathVariable Long productId){
         List<OrderLine> orderLines = order.getOrderLine();
         Boolean orderLineExists = false;
