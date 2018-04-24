@@ -77,7 +77,7 @@ public class ProductController {
     }
 
     @PostMapping(path = "/addToCart/{productId}")
-    public String productDetails(Model model, @ModelAttribute("order") Order order,
+    public String addProductToCart(Model model, @ModelAttribute("order") Order order,
                                  @RequestParam("quantity") int quantity, @PathVariable Long productId){
         List<OrderLine> orderLines = order.getOrderLine();
         Boolean orderLineExists = false;
