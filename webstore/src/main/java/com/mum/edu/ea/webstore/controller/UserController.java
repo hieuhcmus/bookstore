@@ -43,6 +43,7 @@ public class UserController {
 
 	@PostMapping("/my-account")
 	public String updateAccount(@ModelAttribute("person") Person person) {
+		person.setEnabled(true);
 		personService.savePerson(person);
 		return "redirect:/my-account";
 	}

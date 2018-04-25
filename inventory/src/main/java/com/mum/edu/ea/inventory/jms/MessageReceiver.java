@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.jms.JMSException;
@@ -17,13 +18,16 @@ import javax.jms.JMSException;
 public class MessageReceiver {
 
 	static final Logger LOG = LoggerFactory.getLogger(MessageReceiver.class);
-	private static final String ORDER_QUEUE = "order-queue";
+	public static final String ORDER_QUEUE = "order-queue";
 
 	@Autowired
 	private OrderInventoryService orderInventoryService;
 
 	@Autowired
 	private OrderQueueService orderQueueService;
+
+	@Autowired
+	private SimpMessagingTemplate template;
 
 	@JmsListener(destination = ORDER_QUEUE)
 	public void receiveMessage(final Message<Order> message) throws JMSException {
@@ -34,7 +38,8 @@ public class MessageReceiver {
 		Order order = message.getPayload();
 		LOG.info("Application : product : {}", order);
 
-//		orderInventoryService.processOrder(order);
+		template.convertAndSend("/topic/new-order", order);
+
 		orderQueueService.save(order);
 		LOG.info("----------------------------------------------------");
 	}
