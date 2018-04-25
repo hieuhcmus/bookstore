@@ -24,7 +24,7 @@ public class EmailAdvisor {
 	@Autowired
 	PersonService personService;
 	
-	@After("execution(* com.mum.edu.ea.webstore.controller.OrderController.checkoutOrder(..))")
+//	@After("execution(* com.mum.edu.ea.webstore.controller.OrderController.checkoutOrder(..))")
 	public void traceMethod(JoinPoint joinPoint, Authentication authentication) {
 
 		UserAdapter userAdapter = (UserAdapter) authentication.getPrincipal();
