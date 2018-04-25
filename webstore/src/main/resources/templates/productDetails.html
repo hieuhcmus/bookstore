@@ -26,12 +26,12 @@
                     <span class="col-sm-3 col-md-3 col-form-label"><strong th:text="*{product.name}"></strong></span>
                     <p class="col-sm-9 col-md-9" th:text="'$'+*{product.price}"></p>
                 </div>
-                <div>
+                <!-- <div>
                     <span class="col-sm-3 col-md-3 col-form-label"><strong>Quantity</strong></span>
                     <div class="col-sm-9 col-md-9">
                         <input name="quantity" th:field="*{quantity}" type="number" class="form-control" id="quantity">
                     </div>
-                </div>
+                </div> -->
                 <div>
                     <span class="col-sm-3 col-md-3 col-form-label"><strong>Description</strong></span>
                     <p class="col-sm-9 col-md-9" th:text="*{product.description}"></p>
@@ -42,7 +42,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 text-center">
+        <div class="col-12 text-center" sec:authorize="hasRole('ROLE_USER')">
             <input type="submit" class="btn btn-primary mx-1" value="Add to Cart"/>
         </div>
     </form>

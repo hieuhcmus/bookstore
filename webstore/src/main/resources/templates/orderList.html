@@ -20,22 +20,22 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Order Date Time</th>
-            <th scope="col">Total Price</th>
             <th scope="col">Total Items</th>
+            <th scope="col">Total Quantities</th>
+            <th scope="col">Total Price</th>
             <th scope="col">Status</th>
+            <th scope="col">View</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="orderList,iteration : ${orderList}">
+        <tr th:each="orderPriceQuantityList,iteration : ${orderPriceQuantityList}">
         	<td th:text="${iteration.index+1}"></td>
-            <!-- <td>
-                <a th:href="@{'/person/' + ${person.id}}" th:text="${person.firstName}">
-                </a>
-            </td> -->
-            <td th:text="${orderList.orderedAt}"></td>
-            <td>-</td>
-            <td>-</td>
-            <td th:text="${orderList.orderStatus}"></td>
+            <td th:text="${orderPriceQuantityList.order.orderedAt}"></td>
+            <td th:text="${orderPriceQuantityList.totalItems}"></td>
+            <td th:text="${orderPriceQuantityList.totalQuantities}"></td>
+            <td th:text="${orderPriceQuantityList.totalPrice}"></td>
+            <td th:text="${orderPriceQuantityList.order.orderStatus}"></td>
+            <td><a th:href="@{|/orders-admin-descrition/${orderPriceQuantityList.order.orderId}|}"><button class="btn btn-success">View It</button></a></td>
         </tr>
         </c:forEach>
         </tbody>
