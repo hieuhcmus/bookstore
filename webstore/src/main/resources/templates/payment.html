@@ -15,23 +15,112 @@
     <li class="breadcrumb-item active" aria-current="page">Payment</li>
 </ol>
 <th:block layout:fragment="page_content">
-    <!--<form th:object="${payment}" th:action="@{//post-payment}" method="post" class="form-custom">-->
-    <!--<input type="hidden" name="id" th:field="*{id}" />-->
-    <!--<div class="form-group row required">-->
-    <!--<label for="firstName" class="col-sm-3 col-md-3 col-form-label">First Name</label>-->
-    <!--<div class="col-sm-9 col-md-9">-->
-    <!--<input th:field="*{firstName}" type="text" class="form-control" id="firstName" required>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="form-group row required">-->
-    <!--<label for="lastName" class="col-sm-3 col-md-3 col-form-label">Last Name</label>-->
-    <!--<div class="col-sm-9 col-md-9">-->
-    <!--<input th:field="*{lastName}" type="text" class="form-control" id="lastName" required>-->
-    <!--</div>-->
-    <!--</div>-->
+    <form th:object="${payment}" th:action="@{//post-payment}" method="post" class="form-custom">
+    <input type="hidden" name="id" th:field="*{id}" />
+        <div class="form-group row required">
+            <label for="firstName" class="col-sm-3 col-md-3 col-form-label">First Name</label>
+            <div class="col-sm-9 col-md-9">
+                <input th:field="*{firstName}" type="text" class="form-control" id="firstName" required>
+            </div>
+        </div>
+        <div class="form-group row required">
+            <label for="lastName" class="col-sm-3 col-md-3 col-form-label">Last Name</label>
+            <div class="col-sm-9 col-md-9">
+                <input th:field="*{lastName}" type="text" class="form-control" id="lastName" required>
+            </div>
+        </div>
+        <label class="col-sm-3 col-md-3 col-form-label">BILLING ADDRESS</label>
+        <div class="form-group row">
+            <label for="billingAddress.city" class="col-sm-3 col-md-3 col-form-label">City</label>
+            <div class="col-sm-9 col-md-9">
+                <input th:field="*{billingAddress.city}" type="text" class="form-control" id="billingAddress.city">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="billingAddress.state" class="col-sm-3 col-md-3 col-form-label">State</label>
+            <div class="col-sm-9 col-md-9">
+                <input th:field="*{billingAddress.state}" type="text" class="form-control" id="billingAddress.state">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="billingAddress.country" class="col-sm-3 col-md-3 col-form-label">Country</label>
+            <div class="col-sm-9">
+                <input th:field="*{billingAddress.country}" type="text" class="form-control" id="billingAddress.country">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="billingAddress.zipcode" class="col-sm-3 col-md-3 col-form-label">Zip Code</label>
+            <div class="col-sm-9 col-md-9">
+                <input th:field="*{billingAddress.zipcode}" type="text" class="form-control" id="billingAddress.zipcode">
+            </div>
+        </div>
+        <label class="col-sm-3 col-md-3 col-form-label">SHIPPING ADDRESS</label>
+        <div class="form-group row">
+            <label for="shippingAddress.city" class="col-sm-3 col-md-3 col-form-label">City</label>
+            <div class="col-sm-9 col-md-9">
+                <input th:field="*{shippingAddress.city}" type="text" class="form-control" id="shippingAddress.city">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="shippingAddress.state" class="col-sm-3 col-md-3 col-form-label">State</label>
+            <div class="col-sm-9 col-md-9">
+                <input th:field="*{shippingAddress.state}" type="text" class="form-control" id="shippingAddress.state">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="shippingAddress.country" class="col-sm-3 col-md-3 col-form-label">Country</label>
+            <div class="col-sm-9">
+                <input th:field="*{shippingAddress.country}" type="text" class="form-control" id="shippingAddress.country">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="shippingAddress.zipCode" class="col-sm-3 col-md-3 col-form-label">Zip Code</label>
+            <div class="col-sm-9 col-md-9">
+                <input th:field="*{shippingAddress.zipcode}" type="text" class="form-control" id="shippingAddress.zipCode">
+            </div>
+        </div>
 
-    <!--<input type="submit" class="btn btn-primary"/>-->
-    <!--</form>-->
+        <label class="col-sm-3 col-md-3 col-form-label">Select Payment Method: </label>
+        <div class="form-group row">
+            <label for="cardType" class="col-sm-3 col-md-3 col-form-label">Card Type</label>
+            <div class="col-sm-9 col-md-9">
+                <input th:field="*{cardType}" th:remove="all-but-first" type="text" class="form-control" id="cardType">
+                <select>
+                    <option th:value="CREDITCARD" selected="selected">CREDITCARD</option>
+                    <option th:value="VISA">VISA</option>
+                    <option th:value="MASTERCARD">MASTERCARD</option>
+                    <option th:value="DEBITCARD">DEBITCARD</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="cardNo" class="col-sm-3 col-md-3 col-form-label">Card No</label>
+            <div class="col-sm-9 col-md-9">
+                <input th:field="*{cardNo}" type="text" class="form-control" id="cardNo">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="expMonthYear" class="col-sm-3 col-md-3 col-form-label">Expiration</label>
+            <div class="col-sm-9 col-md-9">
+                <input th:field="*{expMonthYear}" type="text" class="form-control" id="expMonthYear">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="cvc" class="col-sm-3 col-md-3 col-form-label">CVC</label>
+            <div class="col-sm-9 col-md-9">
+                <input th:field="*{cvc}" type="text" class="form-control" id="cvc">
+            </div>
+        </div>
+
+        <div class="form-group row" sec:authorize="hasRole('ROLE_ADMIN')">
+            <label for="enabled" class="col-sm-3 col-md-3 col-form-label">Enabled</label>
+            <div class="col-sm-9 col-md-9">
+                <input th:field="*{enabled}" type="checkbox" class="form-control" id="enabled">
+            </div>
+        </div>
+
+        <a th:href="@{/checkout}"><button class="btn btn-success">Checkout</button></a>
+    </form>
 </th:block>
 </body>
 </html>
