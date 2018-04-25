@@ -1,12 +1,25 @@
 package com.mum.edu.ea.webstore.entity;
 
-import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
-@Entity
-public class Product {
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-    @Id
+@Entity
+public class Product implements Serializable{
+
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue
     private long id;
 
@@ -107,4 +120,11 @@ public class Product {
     public void setDescription(String description) {
         this.description = description;
     }
+
+	public Product() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+    
+    
 }
