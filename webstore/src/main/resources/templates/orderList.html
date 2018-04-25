@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head>
+    <section layout:fragment="css_placeholder">
+        <link rel="stylesheet" th:href="@{/css/person_list.css}" href="../../css/person_list.css"/>
+    </section>
+</head>
+<body>
+<header layout:fragment="page_header" class="d-none"></header>
+<ol layout:fragment="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Order List</li>
+</ol>
+<th:block layout:fragment="page_content">
+    <span>The order list is as follows:</span>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Order Date Time</th>
+            <th scope="col">Total Items</th>
+            <th scope="col">Total Quantities</th>
+            <th scope="col">Total Price</th>
+            <th scope="col">Status</th>
+            <th scope="col">View</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="orderPriceQuantityList,iteration : ${orderPriceQuantityList}">
+        	<td th:text="${iteration.index+1}"></td>
+            <td th:text="${orderPriceQuantityList.order.orderedAt}"></td>
+            <td th:text="${orderPriceQuantityList.totalItems}"></td>
+            <td th:text="${orderPriceQuantityList.totalQuantities}"></td>
+            <td th:text="${orderPriceQuantityList.totalPrice}"></td>
+            <td th:text="${orderPriceQuantityList.order.orderStatus}"></td>
+            <td><a th:href="@{|/orders-admin-descrition/${orderPriceQuantityList.order.orderId}|}"><button class="btn btn-success">View It</button></a></td>
+        </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</th:block>
+</body>
+</html>
